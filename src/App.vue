@@ -8,7 +8,7 @@
         class="hidden-md-and-up"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title>Vue-App-Ad</v-toolbar-title>
+      <v-toolbar-title @click="goHome">Vue-App-Ad</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
@@ -23,15 +23,13 @@
       </v-toolbar-items>
     </v-app-bar>
     <v-main>
-      <v-container>
-        <router-view></router-view>
-      </v-container>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import vDrawer from './Drawer'
+import vDrawer from './components/Drawer'
 export default {
   name: 'App',
   components: {
@@ -46,6 +44,11 @@ export default {
       { title: 'New ad', icon: 'mdi-note-plus', url: '/new' },
       { title: 'My ads', icon: 'mdi-clipboard-list', url: '/list' }
     ]
-  })
+  }),
+  methods: {
+    goHome () {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
