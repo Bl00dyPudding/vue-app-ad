@@ -1,7 +1,11 @@
 <template>
   <v-app>
     <v-navigation-drawer app></v-navigation-drawer>
-    <v-app-bar app></v-app-bar>
+    <v-app-bar app>
+      <v-btn @click="$vuetify.theme.isDark = !$vuetify.theme.isDark">
+        {{ isDark }}
+      </v-btn>
+    </v-app-bar>
     <v-main>
       <v-container fluid>
         <router-view></router-view>
@@ -18,9 +22,13 @@ export default {
   components: {
 
   },
-
   data: () => ({
     //
-  })
+  }),
+  computed: {
+    isDark () {
+      return this.$vuetify.theme.isDark ? 'Light' : 'Dark'
+    }
+  }
 }
 </script>
