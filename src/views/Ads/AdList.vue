@@ -4,7 +4,7 @@
       <v-flex xs12>
         <v-card
           class="elevation-8 mt-5 pa-5"
-          v-for="ad in ads"
+          v-for="ad in myAds"
           :key="ad.id"
         >
           <v-layout row>
@@ -37,37 +37,13 @@
 export default {
   name: 'AdList',
   data: () => ({
-    ads: [
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-        title: 'Title',
-        description: 'Hello',
-        id: 123,
-        promo: false
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-        title: 'Title',
-        description: 'Hello',
-        id: 123,
-        promo: true
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        title: 'Title',
-        description: 'Hello',
-        id: 123,
-        promo: false
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-        title: 'Title',
-        description: 'Hello',
-        id: 123,
-        promo: true
-      }
-    ]
-  })
+    //
+  }),
+  computed: {
+    myAds () {
+      return this.$store.getters.myAds
+    }
+  }
 }
 </script>
 

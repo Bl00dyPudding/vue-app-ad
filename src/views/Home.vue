@@ -7,7 +7,7 @@
             <v-carousel-item
               reverse-transition="fade-transition"
               transition="fade-transition"
-              v-for="(item, i) in filteredAds"
+              v-for="(item, i) in promoAds"
               :key="i"
               :src="item.src"
             >
@@ -39,7 +39,6 @@
               :src="item.src"
             >
               <v-card-title>{{ item.title }}</v-card-title>
-
             </v-img>
             <v-card-subtitle class="pb-0"></v-card-subtitle>
             <v-card-text class="text--primary">
@@ -68,40 +67,14 @@
 export default {
   name: 'Home',
   data: () => ({
-    ads: [
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-        title: 'Title',
-        description: 'Hello',
-        id: 123,
-        promo: false
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-        title: 'Title',
-        description: 'Hello',
-        id: 123,
-        promo: true
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        title: 'Title',
-        description: 'Hello',
-        id: 123,
-        promo: false
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-        title: 'Title',
-        description: 'Hello',
-        id: 123,
-        promo: true
-      }
-    ]
+    //
   }),
   computed: {
-    filteredAds () {
-      return this.ads.filter(ad => ad.promo === true)
+    promoAds () {
+      return this.$store.getters.promoAds
+    },
+    ads () {
+      return this.$store.getters.ads
     }
   }
 }

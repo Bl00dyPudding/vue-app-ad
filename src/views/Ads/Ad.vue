@@ -8,11 +8,11 @@
         >
           <v-img
             height="250"
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            :src="adById.src"
           ></v-img>
-          <v-card-title>Cafe Badilico</v-card-title>
+          <v-card-title>{{ adById.title }}</v-card-title>
           <v-card-text>
-              Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.
+              {{ adById.description }}
           </v-card-text>
           <v-divider class="mx-4"></v-divider>
           <v-card-actions>
@@ -21,12 +21,12 @@
               color="deep-purple lighten-2"
               text
             >
-              Reserve
+              Edit
             </v-btn>
             <v-btn
               color="deep-purple lighten-2"
             >
-              Reserve
+              Buy
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -38,6 +38,16 @@
 <script>
 export default {
   name: 'Ad',
+  props: {
+    id: {
+      type: String
+    }
+  },
+  computed: {
+    adById () {
+      return this.$store.getters.adById(+this.id)
+    }
+  },
   data: () => ({
     //
   })

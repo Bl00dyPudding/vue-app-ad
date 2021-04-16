@@ -31,6 +31,7 @@ const routes = [
   {
     path: '/ad/:id',
     name: 'Ad',
+    props: true,
     component: () => import('@/views/Ads/Ad')
   },
   {
@@ -42,13 +43,26 @@ const routes = [
     path: '/registration',
     name: 'Registration',
     component: () => import('@/views/Auth/Registration')
+  },
+  {
+    path: '/404',
+    component: () => import('@/components/Error404')
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, saved) {
+    if (saved) return saved
+    if (to.hash) return to.hash
+    return { x: 0, y: 0 }
+  }
 })
 
 router.afterEach((to, from) => {
