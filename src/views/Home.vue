@@ -39,6 +39,7 @@
               :src="item.src"
             >
               <v-card-title>{{ item.title }}</v-card-title>
+
             </v-img>
             <v-card-subtitle class="pb-0"></v-card-subtitle>
             <v-card-text class="text--primary">
