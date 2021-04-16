@@ -8,7 +8,7 @@
         class="hidden-md-and-up"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title @click="goHome">Vue-App-Ad</v-toolbar-title>
+      <v-toolbar-title @click="goHome" class="pointer">Vue-App-Ad</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
@@ -52,3 +52,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .pointer {
+    cursor: pointer;
+  }
+</style>
