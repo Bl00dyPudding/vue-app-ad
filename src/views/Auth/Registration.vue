@@ -12,6 +12,7 @@
                 type="email"
                 v-model="email"
                 :rules="emailRules"
+                required
               ></v-text-field>
               <v-text-field
                 id="password"
@@ -21,6 +22,7 @@
                 v-model="password"
                 :counter="6"
                 :rules="passwordRules"
+                required
               ></v-text-field>
               <v-text-field
                 id="password-confirm"
@@ -30,6 +32,7 @@
                 v-model="passwordConfirm"
                 :counter="6"
                 :rules="passwordConfirmRules"
+                required
               ></v-text-field>
             </v-form>
           </v-card-text>
