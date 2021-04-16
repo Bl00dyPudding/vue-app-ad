@@ -8,7 +8,10 @@ const routes = [
   {
     path: '',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      title: 'Home'
+    }
   },
   {
     path: '/orders',
@@ -46,6 +49,12 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.afterEach((to, from) => {
+  Vue.nextTick(() => {
+    document.title = to.meta?.title || 'Vue App'
+  })
 })
 
 export default router
