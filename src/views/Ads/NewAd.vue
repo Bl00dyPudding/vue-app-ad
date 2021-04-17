@@ -53,7 +53,14 @@
     </v-layout>
     <v-layout row>
       <v-flex xs10 offset-xs1>
-        <v-btn :disabled="!valid" class="success" @click="createAd">Create</v-btn>
+        <v-btn
+          :disabled="!valid || loading"
+          class="success"
+          @click="createAd"
+          :loading="loading"
+        >
+          Create
+        </v-btn>
       </v-flex>
     </v-layout>
   </v-container>
@@ -79,7 +86,16 @@ export default {
         }
 
         this.$store.dispatch('createAd', ad)
+          .then(() => {
+            this.$router.push('/list')
+          })
+          .catch(() => {})
       }
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }

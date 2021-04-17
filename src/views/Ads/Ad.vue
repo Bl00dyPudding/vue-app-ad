@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     adById () {
-      return this.$store.getters.adById(+this.id)
+      return this.$store.getters.adById(this.id)
     }
   },
   data: () => ({
