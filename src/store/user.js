@@ -28,6 +28,19 @@ export default {
         commit('setError', err.message)
         throw err
       }
+    },
+    async loginUser ({ commit }, { email, password }) {
+      commit('clearError')
+      commit('setLoading', true)
+      try {
+        const user = await firebase.auth().signInWithEmailAndPassword(email, password)
+        commit('setLoading', false)
+        commit('setUser', new User(user))
+      } catch (err) {
+        commit('setLoading', false)
+        commit('setError', err.message)
+        throw err
+      }
     }
   },
   getters: {
