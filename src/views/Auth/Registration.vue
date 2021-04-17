@@ -41,7 +41,8 @@
             <v-btn
               color="primary"
               @click="onSubmit"
-              :disabled="!valid"
+              :disabled="!valid || loading"
+              :loading="loading"
             >Create account</v-btn>
           </v-card-actions>
         </v-card>
@@ -80,8 +81,19 @@ export default {
           email: this.email,
           password: this.password
         }
-        console.log(user)
+        this.$store.dispatch('registerUser', user)
+          .then(() => {
+            this.$router.push('/')
+          })
+          .catch(() => {
+            console.error(this.$store.getters.error)
+          })
       }
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }

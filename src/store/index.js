@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import ads from '@/store/ads'
+import user from '@/store/user'
+import common from '@/store/common'
 
 Vue.use(Vuex)
 
@@ -14,6 +16,8 @@ export default new Vuex.Store({
   getters: {
   },
   modules: {
-    ads
+    common,
+    ads,
+    user
   }
 })
