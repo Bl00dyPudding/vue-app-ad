@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import AuthGuard from './auth-guard'
 import Home from '@/views/Home'
 
 Vue.use(VueRouter)
@@ -16,17 +17,23 @@ const routes = [
   {
     path: '/orders',
     name: 'Orders',
-    component: () => import('@/views/User/Orders')
+    meta: {
+      title: 'Orders'
+    },
+    component: () => import('@/views/User/Orders'),
+    beforeEnter: AuthGuard
   },
   {
     path: '/new',
     name: 'NewAd',
-    component: () => import('@/views/Ads/NewAd')
+    component: () => import('@/views/Ads/NewAd'),
+    beforeEnter: AuthGuard
   },
   {
     path: '/list',
     name: 'AdList',
-    component: () => import('@/views/Ads/AdList')
+    component: () => import('@/views/Ads/AdList'),
+    beforeEnter: AuthGuard
   },
   {
     path: '/ad/:id',

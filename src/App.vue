@@ -43,7 +43,7 @@
         @input="closeError"
       >
         <v-row class="pa-1 justify-center align-center">
-          <v-flex xs10>
+          <v-flex xs10 class="text-center">
             {{ error }}
           </v-flex>
           <v-btn @click.native="closeError" text>Close</v-btn>
