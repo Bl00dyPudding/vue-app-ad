@@ -74,10 +74,11 @@ export default {
         const ad = {
           title: this.title,
           description: this.description,
-          promo: this.promo
+          promo: this.promo,
+          src: 'https://picsum.photos/id/11/500/300'
         }
 
-        console.log(ad)
+        this.$store.dispatch('createAd', ad)
       }
     }
   }
