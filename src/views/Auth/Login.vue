@@ -68,9 +68,7 @@ export default {
           .then(() => {
             this.$router.push('/')
           })
-          .catch(() => {
-            console.error(this.$store.getters.error)
-          })
+          .catch(() => {})
       }
     }
   },
