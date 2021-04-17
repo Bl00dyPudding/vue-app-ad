@@ -25,6 +25,23 @@
     <v-main>
       <router-view></router-view>
     </v-main>
+    <template v-if="error">
+      <v-snackbar
+        :timeout="5000"
+        :multi-line="true"
+        color="error"
+        max-width="300"
+        :value="true"
+        @input="closeError"
+      >
+        <v-row class="pa-1 justify-center align-center">
+          <v-flex xs10>
+            {{ error }}
+          </v-flex>
+          <v-btn @click.native="closeError" text>Close</v-btn>
+        </v-row>
+      </v-snackbar>
+    </template>
   </v-app>
 </template>
 
@@ -37,6 +54,7 @@ export default {
   },
   data: () => ({
     drawer: false,
+    snackbar: true,
     links: [
       { title: 'Login', icon: 'mdi-account-lock', url: '/login' },
       { title: 'Registration', icon: 'mdi-face', url: '/registration' },
@@ -48,6 +66,14 @@ export default {
   methods: {
     goHome () {
       this.$router.push('/')
+    },
+    closeError () {
+      this.$store.dispatch('clearError')
+    }
+  },
+  computed: {
+    error () {
+      return this.$store.getters.error
     }
   }
 }
