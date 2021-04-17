@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-navigation-drawer app v-model="drawer">
-      <v-drawer :links="links"></v-drawer>
+      <v-drawer :links="links" :isUserLoggedIn="isUserLoggedIn" :logOut="logOut"></v-drawer>
     </v-navigation-drawer>
     <v-app-bar app>
       <v-app-bar-nav-icon
@@ -19,6 +19,14 @@
         >
           <v-icon left>{{ link.icon }}</v-icon>
           {{ link.title }}
+        </v-btn>
+        <v-btn
+          text
+          v-if="isUserLoggedIn"
+          @click="logOut"
+        >
+          <v-icon left>mdi-exit-to-app</v-icon>
+          Log out
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
@@ -54,14 +62,7 @@ export default {
   },
   data: () => ({
     drawer: false,
-    snackbar: true,
-    links: [
-      { title: 'Login', icon: 'mdi-account-lock', url: '/login' },
-      { title: 'Registration', icon: 'mdi-face', url: '/registration' },
-      { title: 'Orders', icon: 'mdi-bookmark', url: '/orders' },
-      { title: 'New ad', icon: 'mdi-note-plus', url: '/new' },
-      { title: 'My ads', icon: 'mdi-clipboard-list', url: '/list' }
-    ]
+    snackbar: true
   }),
   methods: {
     goHome () {
@@ -69,11 +70,31 @@ export default {
     },
     closeError () {
       this.$store.dispatch('clearError')
+    },
+    logOut () {
+      this.$router.push('/')
+      this.$store.dispatch('logOut')
     }
   },
   computed: {
     error () {
       return this.$store.getters.error
+    },
+    isUserLoggedIn () {
+      return this.$store.getters.isUserLoggedIn
+    },
+    links () {
+      if (this.isUserLoggedIn) {
+        return [
+          { title: 'Orders', icon: 'mdi-bookmark', url: '/orders' },
+          { title: 'New ad', icon: 'mdi-note-plus', url: '/new' },
+          { title: 'My ads', icon: 'mdi-clipboard-list', url: '/list' }
+        ]
+      }
+      return [
+        { title: 'Login', icon: 'mdi-account-lock', url: '/login' },
+        { title: 'Registration', icon: 'mdi-face', url: '/registration' }
+      ]
     }
   }
 }

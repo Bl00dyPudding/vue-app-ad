@@ -12,6 +12,15 @@
           <v-list-item-title v-text="link.title"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item
+        v-if="isUserLoggedIn"
+        @click="logOut"
+      >
+        <v-icon v-text="'mdi-exit-to-app'" left></v-icon>
+        <v-list-item-content>
+          <v-list-item-title v-text="'Log out'"></v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list-item-group>
     <v-subheader>Theme settings</v-subheader>
     <v-list-item-group multiple>
@@ -37,6 +46,12 @@ export default {
   props: {
     links: {
       type: Array
+    },
+    isUserLoggedIn: {
+      type: Boolean
+    },
+    logOut: {
+      type: Function
     }
   },
   computed: {

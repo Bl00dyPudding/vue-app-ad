@@ -12,7 +12,10 @@ export default {
   },
   mutations: {
     setUser (state, payload) {
-      state.user = payload.id.user.uid
+      state.user = payload
+    },
+    logOut (state) {
+      state.user = null
     }
   },
   actions: {
@@ -21,8 +24,9 @@ export default {
       commit('setLoading', true)
       try {
         const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+        console.log(user)
         commit('setLoading', false)
-        commit('setUser', new User(user))
+        commit('setUser', new User(user.user.uid))
       } catch (err) {
         commit('setLoading', false)
         commit('setError', err.message)
@@ -35,17 +39,27 @@ export default {
       try {
         const user = await firebase.auth().signInWithEmailAndPassword(email, password)
         commit('setLoading', false)
-        commit('setUser', new User(user))
+        commit('setUser', new User(user.user.uid))
       } catch (err) {
         commit('setLoading', false)
         commit('setError', err.message)
         throw err
       }
+    },
+    autoLogIn ({ commit }, user) {
+      commit('setUser', new User(user.uid))
+    },
+    logOut ({ commit }) {
+      firebase.auth().signOut()
+      commit('logOut')
     }
   },
   getters: {
     user (state) {
       return state.user
+    },
+    isUserLoggedIn (state) {
+      return state.user !== null
     }
   }
 }
