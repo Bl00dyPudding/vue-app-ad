@@ -20,5 +20,7 @@ new Vue({
     firebase.auth().onAuthStateChanged(user => {
       if (user) this.$store.dispatch('autoLogIn', user)
     })
+
+    this.$store.dispatch('getAds')
   }
 }).$mount('#app')

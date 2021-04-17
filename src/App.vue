@@ -66,13 +66,13 @@ export default {
   }),
   methods: {
     goHome () {
-      this.$router.push('/')
+      if (this.$route.path !== '/') this.$router.push('/')
     },
     closeError () {
       this.$store.dispatch('clearError')
     },
     logOut () {
-      this.$router.push('/')
+      this.goHome()
       this.$store.dispatch('logOut')
     }
   },
