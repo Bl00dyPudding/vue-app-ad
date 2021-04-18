@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex xs12>
+      <v-flex xs12 v-if="!loading && myAds.length !== 0">
         <v-card
           class="elevation-8 mt-5 pa-5"
           v-for="ad in myAds"
@@ -29,6 +29,20 @@
           </v-layout>
         </v-card>
       </v-flex>
+      <v-flex xs12 class="text-center" v-else-if="!loading && myAds.length === 0">
+        You have no ads.
+      </v-flex>
+      <v-sheet
+        :color="`grey ${this.$vuetify.theme.isDark ? 'darken-2' : 'lighten-4'}`"
+        class="pa-3"
+        v-else
+      >
+        <v-skeleton-loader
+          class="mx-auto"
+          max-width="300"
+          type="card"
+        ></v-skeleton-loader>
+      </v-sheet>
     </v-layout>
   </v-container>
 </template>
@@ -42,6 +56,9 @@ export default {
   computed: {
     myAds () {
       return this.$store.getters.myAds
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }
