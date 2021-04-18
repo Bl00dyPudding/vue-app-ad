@@ -27,19 +27,20 @@
     </v-layout>
     <v-layout row>
       <v-flex xs10 offset-xs1>
-        <v-btn color="blue-grey" class="ma-2 white--text">
-          Upload
-          <v-icon right dark>mdi-cloud-upload</v-icon>
-        </v-btn>
+        <v-file-input
+          v-model="image"
+          label="Select Image File..."
+          accept="image/*"
+          @change="readImage"
+        ></v-file-input>
       </v-flex>
     </v-layout>
-    <v-layout row>
+    <v-layout row v-if="src">
       <v-flex xs10 offset-xs1>
         <v-img
-          lazy-src="https://picsum.photos/id/11/10/6"
-          max-height="150"
-          max-width="250"
-          src="https://picsum.photos/id/11/500/300"
+          :lazy-src="src"
+          max-height="100"
+          :src="src"
         ></v-img>
       </v-flex>
     </v-layout>
@@ -54,7 +55,7 @@
     <v-layout row>
       <v-flex xs10 offset-xs1>
         <v-btn
-          :disabled="!valid || loading"
+          :disabled="!valid || !image || loading"
           class="success"
           @click="createAd"
           :loading="loading"
@@ -73,16 +74,18 @@ export default {
     valid: false,
     title: '',
     description: '',
-    promo: false
+    promo: false,
+    image: null,
+    src: null
   }),
   methods: {
     createAd () {
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && this.image) {
         const ad = {
           title: this.title,
           description: this.description,
           promo: this.promo,
-          src: 'https://picsum.photos/id/11/500/300'
+          image: this.image
         }
 
         this.$store.dispatch('createAd', ad)
@@ -91,6 +94,13 @@ export default {
           })
           .catch(() => {})
       }
+    },
+    readImage () {
+      const reader = new FileReader()
+      reader.onload = () => {
+        this.src = reader.result
+      }
+      reader.readAsDataURL(this.image)
     }
   },
   computed: {

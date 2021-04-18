@@ -24,22 +24,26 @@ export default {
     }
   },
   actions: {
-    async createAd ({ commit }, { title, description, promo, src }) {
+    async createAd ({ commit }, { title, description, promo, image }) {
       commit('clearError')
       commit('setLoading', true)
-      const uid = this.getters.user.id
       try {
+        const uid = this.getters.user.id
         const newAd = new Ad(
           uid,
           title,
           description,
-          promo,
-          src
+          promo
         )
         const ad = await firebase.database().ref('ads').push(newAd)
+        // const imageExt = image.name.slice(image.name.lastIndexOf('.'))
+        const upload = await firebase.storage().ref(`ads/${ad.key}`).put(image)
+        const src = await upload.ref.getDownloadURL()
+        await firebase.database().ref('ads').child(ad.key).update({ src })
         commit('createAd', {
           ...newAd,
-          id: ad.key
+          id: ad.key,
+          src
         })
         commit('setLoading', false)
       } catch (err) {
