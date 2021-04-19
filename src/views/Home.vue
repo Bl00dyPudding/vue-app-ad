@@ -67,9 +67,7 @@
                   :to="'/ad/' + item.id">
                   Open
                 </v-btn>
-                <v-btn color="primary">
-                  Buy
-                </v-btn>
+                <buy-modal :ad="item"></buy-modal>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -80,6 +78,7 @@
 </template>
 
 <script>
+import buyModal from '@/views/Ads/BuyModal'
 export default {
   name: 'Home',
   data: () => ({
@@ -95,6 +94,9 @@ export default {
     loading () {
       return this.$store.getters.loading
     }
+  },
+  components: {
+    buyModal
   }
 }
 </script>

@@ -19,11 +19,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <edit-ad-modal :ad="adById" v-if="isOwner"></edit-ad-modal>
-            <v-btn
-              color="deep-purple lighten-2"
-            >
-              Buy
-            </v-btn>
+            <buy-modal :ad="adById"></buy-modal>
           </v-card-actions>
         </v-card>
         <v-sheet
@@ -44,7 +40,7 @@
 
 <script>
 import editAdModal from './EditAdModal'
-
+import buyModal from './BuyModal'
 export default {
   name: 'Ad',
   props: {
@@ -67,7 +63,8 @@ export default {
     //
   }),
   components: {
-    editAdModal
+    editAdModal,
+    buyModal
   }
 }
 </script>
