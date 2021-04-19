@@ -56,7 +56,7 @@
             Close
           </v-btn>
           <v-btn
-            color="blue darken-1"
+            color="accent"
             text
             @click="onSave"
           >
